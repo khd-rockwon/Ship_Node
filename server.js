@@ -15,6 +15,8 @@ const net = require('net')
 
 var imei;
 
+var imei2 = false;
+global.imei2 = imei2;
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
@@ -60,6 +62,7 @@ const server = net.createServer(function (client) {
   });
 
   console.log("imei확인2 : " + imei);
+  console.log("imei 글로벌 : " + imei2);
   result = '[3G*'.concat(imei, `*0002*CR]`);
   console.log("result 확인 : " + result);
 
