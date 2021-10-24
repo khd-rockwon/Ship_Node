@@ -15,7 +15,7 @@ const net = require('net')
 
 var imei;
 
-var imei2 = false;
+var imei2;
 global.imei2 = imei2;
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
