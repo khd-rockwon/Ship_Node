@@ -47,7 +47,7 @@ const server = net.createServer(function (client) {
   client.on('data', function (data) {
     console.log(data.toString());
 
-    connection.query( 'INSERT INTO WearableData(data) values(?),', [data.toString()]  )
+    connection.query( 'INSERT INTO WearableData(data) values(?),', [data]  )
 
   });
 
