@@ -56,8 +56,8 @@ const server = net.createServer(function (client) {
      console.log("imei확인1 : " + imei);
 
      connection.query(
-         `INSERT INTO wearableData(data) values(?)`,
-         [data.toString()],
+         `INSERT INTO wearableData(data) VALUES(?)`,
+         ['abcd'],
          function (error, result){
             if(error){
               throw error;
