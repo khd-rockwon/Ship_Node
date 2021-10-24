@@ -48,7 +48,7 @@ const server = net.createServer(function (client) {
 
 
   client.on('data', function (data) {
-    console.log("확인1 : "+data.toString());
+    console.log("확인1 : " + data.toString());
 
     imei = data.slice(4,14);
 
@@ -57,7 +57,7 @@ const server = net.createServer(function (client) {
 
      connection.query(
          `INSERT INTO wearableData(data) values(?)`,
-         [data],
+         [data.toString()],
          function (error, result){
             if(error){
               throw error;
