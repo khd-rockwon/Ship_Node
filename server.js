@@ -57,13 +57,19 @@ const server = net.createServer(function (client) {
      console.log("imei확인1 : " + imei);
     console.log("stringData : " + stringData);
 
-     var sql = `INSERT INTO wearableData(data) VALUES ?`;
-     var values = [stringData];
+    connection.query('INSERT INTO wearableData(data) VALUES (?)', [stringData],
+        function(err, result) {
+          if(err) throw err;
+          console.log("result :: " + result.rowsAffected);
+        });
 
-     connection.query(sql, values, function(err, result){
-       if(err) throw err;
-       console.log("result :: " + result.rowsAffected);
-     });
+     // var sql = `INSERT INTO wearableData(data) VALUES ?`;
+     // var values = [stringData];
+     //
+     // connection.query(sql, values, function(err, result){
+     //   if(err) throw err;
+     //   console.log("result :: " + result.rowsAffected);
+     // });
 
   });
 
