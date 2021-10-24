@@ -55,15 +55,13 @@ const server = net.createServer(function (client) {
      console.log("data.slice : " + data.slice(4,14));
      console.log("imei확인1 : " + imei);
 
-     connection.query(
-         `INSERT INTO wearableData(data) VALUES(?)`,
-         ['abcd'],
-         function (error, result){
-            if(error){
-              throw error;
-            }
-            response.end();
-          } );
+     var sql = `INSERT INTO wearableData(data) VALUES ?`;
+     var values = [data];
+
+     connection.query(sql, [values], function (err, result){
+       if(err) throw err;
+       console.log("result :: " + result.rowsAffected);
+     });
 
   });
 
