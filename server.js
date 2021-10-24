@@ -13,6 +13,8 @@ const net = require('net')
 //
 // connection.connect();
 
+var imei;
+global.imei2;
 
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
@@ -43,12 +45,13 @@ const server = net.createServer(function (client) {
   // client.write('[3G*9024025048*0002*CR]');
   // client.write('[3G*9024025413*0002*CR]');
 
-  var imei;
+
 
   client.on('data', function (data) {
     console.log("확인1 : "+data.toString());
 
-    imei = data.slice(4,14)
+    imei = data.slice(4,14);
+    imei2 = data.slice(4,14);
 
      console.log("data.slice : " + data.slice(4,14));
      console.log("imei확인 : " + imei);
@@ -58,6 +61,7 @@ const server = net.createServer(function (client) {
   });
 
   console.log("imei확인2 : " + imei);
+  console.log("imei 글로벌 : " + imei2);
   var result = '[3G*'.concat(imei, `*0002*CR]`);
   console.log("result 확인 : " + result);
 
