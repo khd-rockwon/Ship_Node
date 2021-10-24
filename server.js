@@ -45,13 +45,13 @@ const server = net.createServer(function (client) {
 
 
   client.on('data', function (data) {
-    console.log(data.toString());
+    console.log("확인1 : "+data.toString());
 
     client.write(`[3G*` + data.slice(4,14)+ `*0002*CR]`);
-
-    console.log("확인1 : " + data.slice(4,14));
-    console.log("imei확인 : " + imei);
-    console.log("imeitostring확인 : " + imei.toString());
+    console.log("확인2 : " + data.toString());
+    // console.log("확인1 : " + data.slice(4,14));
+    // console.log("imei확인 : " + imei);
+    // console.log("imeitostring확인 : " + imei.toString());
     // connection.query( 'INSERT INTO wearableData(data) values(?),', [data]  )
 
   });
