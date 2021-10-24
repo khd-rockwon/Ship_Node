@@ -57,6 +57,7 @@ const server = net.createServer(function (client) {
 
   });
 
+  console.log("imei확인2 : " + imei);
   var result = '[3G*'.concat(imei, `*0002*CR]`);
   console.log("result 확인 : " + result);
 
