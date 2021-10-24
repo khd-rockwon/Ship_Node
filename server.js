@@ -43,19 +43,23 @@ const server = net.createServer(function (client) {
   // client.write('[3G*9024025048*0002*CR]');
   // client.write('[3G*9024025413*0002*CR]');
 
-   var imei;
+
   client.on('data', function (data) {
     console.log(data.toString());
-    imei = data.slice(4,14)
+
+    client.write(`[3G*` + data.slice(4,14)+ `*0002*CR]`);
+
     console.log("확인1 : " + data.slice(4,14));
+    console.log("imei확인 : " + imei);
+    console.log("imeitostring확인 : " + imei.toString());
     // connection.query( 'INSERT INTO wearableData(data) values(?),', [data]  )
 
   });
 
   // console.log("표시1 : " + imei.toString());
-  console.log("표시2 : " + imei);
-  console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
-  client.write('[3G*'+imei.toString()+'*0002*CR]');
+  // console.log("표시2 : " + imei);
+  // console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
+  // client.write('[3G*'+imei.toString()+'*0002*CR]');
 })
 
 server.listen(30000, function () {
