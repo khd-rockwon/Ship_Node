@@ -57,7 +57,10 @@ const server = net.createServer(function (client) {
 
   });
 
-  client.write(`[3G*` + imei + `*0002*CR]`);
+  var result = '[3G*'.concat(imei, `*0002*CR]`);
+  console.log("result 확인 : " + result);
+
+  client.write(result);
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
   // console.log("표시2 : " + imei);
   // console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
