@@ -1,17 +1,18 @@
 const net = require('net')
 
-// const maria = require('mysql')
-//
-// var connection = maria.createConnection({
-//   host:'192.168.50.54',
-//   post:3306,
-//   user:'shovvel',
-//   password:'rockwon12!',
-//   database:'TEST'
-// })
-//
-//
-// connection.connect();
+const maria = require('mysql')
+const {response} = require("express");
+
+var connection = maria.createConnection({
+  host:'192.168.50.54',
+  post:3306,
+  user:'shovvel',
+  password:'rockwon12!',
+  database:'TEST'
+})
+
+
+connection.connect();
 
 var imei;
 
@@ -54,6 +55,16 @@ const server = net.createServer(function (client) {
      console.log("data.slice : " + data.slice(4,14));
      console.log("imei확인1 : " + imei);
 
+     connection.query(
+         `INSERT INTO wearableData(data) values(?)`,
+         [data],
+         function (error, result){
+            if(error){
+              throw error;
+            }
+            response.end();
+          } );
+
   });
 
   console.log("imei확인2 : " + imei);
@@ -63,6 +74,8 @@ const server = net.createServer(function (client) {
 
   client.write(result);
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
+
+
 
   // console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
   // client.write('[3G*'+imei.toString()+'*0002*CR]');
