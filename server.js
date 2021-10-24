@@ -15,8 +15,6 @@ const net = require('net')
 
 var imei;
 
-var imei2;
-global.imei2 = imei2;
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
@@ -52,23 +50,20 @@ const server = net.createServer(function (client) {
     console.log("확인1 : "+data.toString());
 
     imei = data.slice(4,14);
-    imei2 = data.slice(4,14);
 
      console.log("data.slice : " + data.slice(4,14));
      console.log("imei확인 : " + imei);
-    // console.log("imeitostring확인 : " + imei.toString());
-    // connection.query( 'INSERT INTO wearableData(data) values(?),', [data]  )
 
   });
 
   console.log("imei확인2 : " + imei);
-  console.log("imei 글로벌 : " + imei2);
+
   result = '[3G*'.concat(imei, `*0002*CR]`);
   console.log("result 확인 : " + result);
 
   client.write(result);
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
-  // console.log("표시2 : " + imei);
+
   // console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
   // client.write('[3G*'+imei.toString()+'*0002*CR]');
 })
