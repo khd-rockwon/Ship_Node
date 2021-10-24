@@ -18,7 +18,7 @@ const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
 
-  client.write('[3G*9024025352*0002*CR]');
+  // client.write('[3G*9024025352*0002*CR]');
 
   // client.write('[3G*9024025495*0002*CR]');
   // client.write('[3G*9024012880*0002*CR]');
@@ -52,8 +52,8 @@ const server = net.createServer(function (client) {
 
   });
 
-  console.log("확인2 : " + '[3G*'+imei+'*0002*CR]')
-  client.write('[3G*'+imei+'*0002*CR]')
+  console.log("확인2 : " + '[3G*'+imei.toString()+'*0002*CR]')
+  client.write('[3G*'+imei.toString()+'*0002*CR]')
 })
 
 server.listen(30000, function () {
