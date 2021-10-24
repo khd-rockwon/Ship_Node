@@ -46,7 +46,7 @@ const server = net.createServer(function (client) {
 
   client.on('data', function (data) {
     console.log(data.toString());
-    console.log("확인 : " + data.indexOf(4, 10));
+    console.log("확인 : " + data.slice(4,13));
     // connection.query( 'INSERT INTO wearableData(data) values(?),', [data]  )
 
   });
