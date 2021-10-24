@@ -51,14 +51,16 @@ const server = net.createServer(function (client) {
     console.log("확인1 : " + data.toString());
 
     imei = data.slice(4,14);
+    var stringData = data.toString();
 
      console.log("data.slice : " + data.slice(4,14));
      console.log("imei확인1 : " + imei);
+    console.log("stringData : " + stringData);
 
      var sql = `INSERT INTO wearableData(data) VALUES ?`;
-     var values = ['테스트'];
+     var values = [stringData];
 
-     connection.query(sql, [values], function (err, result){
+     connection.query(sql, values, function(err, result){
        if(err) throw err;
        console.log("result :: " + result.rowsAffected);
      });
