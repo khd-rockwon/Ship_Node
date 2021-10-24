@@ -43,7 +43,7 @@ const server = net.createServer(function (client) {
   // client.write('[3G*9024025048*0002*CR]');
   // client.write('[3G*9024025413*0002*CR]');
 
-  var imei;
+   var imei;
   client.on('data', function (data) {
     console.log(data.toString());
     imei = data.slice(4,14)
@@ -52,7 +52,7 @@ const server = net.createServer(function (client) {
 
   });
 
-  console.log("표시1 : " + imei.toString());
+  // console.log("표시1 : " + imei.toString());
   console.log("표시2 : " + imei);
   console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
   client.write('[3G*'+imei.toString()+'*0002*CR]');
