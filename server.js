@@ -22,6 +22,7 @@ const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
 
+  client.write('[3G*9024011309*0002*CR]');
   client.on('data', function (data) {
     console.log("확인1 : " + data.toString());
 
@@ -55,6 +56,7 @@ const server = net.createServer(function (client) {
 
   // client.write(result);
   client.write('[3G*9024011309*0002*CR]');
+
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
 
 
