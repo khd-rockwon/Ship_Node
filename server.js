@@ -54,7 +54,7 @@ const server = net.createServer(function (client) {
   console.log("result 확인 : " + result);
 
   // client.write(result);
-  client.write('[3G*9024011309*0002*CR]');
+  client.write('[3G*9024025633*0002*CR]');
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
 
 
