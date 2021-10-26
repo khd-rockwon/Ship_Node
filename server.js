@@ -52,11 +52,13 @@ const server = net.createServer(function (client) {
   console.log("imei확인2 : " + imei);
 
   result1 = '[3G*'.concat(imei, `*0002*CR]`);
-  result2 = '[3G*'.concat(imei, `*0002*PULSE]`);
+  result2 = '[3G*'.concat(imei, `*0005*PULSE]`);
   console.log("result 확인 : " + result1);
   console.log("result 확인 : " + result2);
 
-  client.write(result);
+  client.write(result1);
+  client.write(result2);
+
   client.write('[3G*9024025519*0002*]');
 
   console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
