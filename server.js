@@ -21,8 +21,7 @@ var imei;
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
-
-
+  
   client.on('data', function (data) {
     console.log("확인1 : " + data.toString());
 
