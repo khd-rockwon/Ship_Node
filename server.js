@@ -1,18 +1,19 @@
 const net = require('net');
-
 const maria = require('mysql');
 const {response} = require("express");
 
-var connection = maria.createConnection({
+//소켓서버 에러 해결 테스트
+const axios = require("axios");
+axios.default.timeout = 5 * 1000;
 
+
+var connection = maria.createConnection({
   host:'192.168.50.54',
   post:3306,
   user:'shovvel',
   password:'rockwon12!',
   database:'TEST'
-
 })
-
 
 connection.connect();
 
@@ -21,50 +22,53 @@ var imei;
 const server = net.createServer(function (client) {
   console.log('   local = %s:%s', client.localAddress, client.localPort);
   console.log('   remote = %s:%s', client.remoteAddress, client.remotePort);
-  
-  client.on('data', function (data) {
-    console.log("확인1 : " + data.toString());
 
+  var i = 1;
+
+  client.on('data', function (data) {
+    console.log("***전송받은 데이터 : " + data.toString());
+
+    //전송받은 데이터에서 imei값 추출
     imei = data.slice(4,14);
+
+    //전송받은 데이터를 문자열로 변환
     var stringData = data.toString();
 
-    console.log("data.slice : " + data.slice(4,14));
-    console.log("imei확인1 : " + imei);
-    console.log("stringData : " + stringData);
+    // console.log("imei추출결과 확인 : " + imei);
+    // console.log("전송받은 데이터 문자열로 변환한 결과 확인 : " + stringData);
 
+    //전송받은 데이터 DB에 저장
     connection.query('INSERT INTO wearableData(data) VALUES (?)', [stringData],
         function(err, result) {
           if(err) throw err;
           console.log("result :: " + result.rowsAffected);
         });
 
-     // var sql = `INSERT INTO wearableData(data) VALUES ?`;
-     // var values = [stringData];
-     //
-     // connection.query(sql, values, function(err, result){
-     //   if(err) throw err;
-     //   console.log("result :: " + result.rowsAffected);
-     // });
+    //GPS데이터를 전송받기 위한 명령어 생성
+     result = '[3G*'.concat(imei, `*0002*CR]`);
+     console.log("GPS데이터 받기위한 명령어 확인 : " + result);
+     console.log("")
+     console.log("")
+     
+    //명령어 보내기
+    
+    if(i==1) {
+      client.write(result);
+      i = i + 1;
+    }
+
+
+
+
+    client.on ( 'error', function (err) {console.error (err)})
+
+
+
+
 
   });
 
-  console.log("imei확인2 : " + imei);
 
-  result = '[3G*'.concat(imei, `*0002*CR]`);
-  console.log("result 확인 : " + result);
-
-
-  client.write(result);
-
-
-  // client.write('[3G*9024025653*0005*PULSE]');
-
-  console.log("클라이언트 : " + `[3G*` + imei + `*0002*CR]`);
-
-
-
-  // console.log("확인2 :" + `[3G*` + imei.toString() + `*0002*CR]`);
-  // client.write('[3G*'+imei.toString()+'*0002*CR]');
 })
 
 server.listen(30000, function () {
